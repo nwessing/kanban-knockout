@@ -1,0 +1,80 @@
+﻿* {
+  /*-moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+   box-sizing:border-box;*/
+   font-family: Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif
+}
+
+body {
+    background: #555D50;
+    color: #FFFAFA;
+}
+
+.center {
+    text-align: center;
+}
+
+.third {
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.board {
+    margin: 25px;
+    border: 1px solid black;
+    min-height: 600px;
+    background: #FFFAFA;
+}
+
+.task {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: move;
+
+    /*Post it note styles*/
+    color: #000;
+    border: 1px solid #000;
+    background: #ffc;
+    height: 10em;
+    width: 10em;
+    padding: 1em;
+    margin: 1em;
+     /* Firefox */
+    -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+    /* Safari+Chrome */
+    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    /* Opera */
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    -moz-transition:-moz-transform .15s linear;
+    -o-transition:-o-transform .15s linear;
+    -webkit-transition:-webkit-transform .15s linear;
+}
+
+.task:hover, .task:focus {
+    -moz-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+    -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+    box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    transform: scale(1.25);
+    position: relative;
+    z-index: 5;
+}
+
+.trash {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    background: gray;
+}
+
+progress {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Example 1 in JQuery</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+</head>
+<body>
+    <div>   
+        <p>First name: <input id='firstName' type="text" /></p> 
+        <p>Last name: <input id='lastName' type="text" /></p> 
+        <h2>Hello, <span id='fullName'> </span>!</h2>  
+    </div>
+
+    <script type="text/javascript" src="js/lib/jquery-2.1.1.js"></script>
+    <script> 
+        $(function () {
+            function updateFullName() {
+                $('#fullName').text($('#firstName').val() + ' ' + $('#lastName').val());
+            }
+            $('#firstName').on('input', function(){
+                updateFullName();
+            });
+            $('#lastName').on('input', function () {
+                updateFullName();
+            });
+            $('#firstName').val('CAP');
+            $('#lastName').val('Team');
+            updateFullName();
+        });
+    </script>
+</body>
+</html>

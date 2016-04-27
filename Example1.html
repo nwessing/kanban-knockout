@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Example 1</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+</head>
+<body>
+    <div>   
+        <p>First name: <input data-bind='value: firstName' /></p> 
+        <p>Last name: <input data-bind='value: lastName' /></p> 
+        <h2>Hello, <span data-bind='text: fullName'> </span>!</h2>  
+    </div>
+
+    <script type="text/javascript" src="js/lib/knockout-3.1.0.js"></script>
+    <script> 
+        document.addEventListener('DOMContentLoaded', function () {
+            var ViewModel = function (first, last) {
+                this.firstName = ko.observable(first);
+                this.lastName = ko.observable(last);
+
+                this.fullName = ko.computed(function () {
+                    return this.firstName() + " " + this.lastName();
+                }, this);
+            };
+
+            ko.applyBindings(new ViewModel("CAP", "Team"));
+        });
+    </script>
+</body>
+</html>

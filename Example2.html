@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Example 2</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+</head>
+<body>
+    <div>You've clicked <span data-bind='text: numberOfClicks'></span> times</div>
+     
+    <button data-bind='click: registerClick, disable: hasClickedTooManyTimes'>Click me</button>
+     
+    <div data-bind='visible: hasClickedTooManyTimes'>
+        That's too many clicks! Please stop before you wear out your fingers.
+        <button data-bind='click: resetClicks'>Reset clicks</button>
+    </div>
+
+    <script type="text/javascript" src="js/lib/knockout-3.1.0.js"></script>
+    <script> 
+        document.addEventListener('DOMContentLoaded', function () {
+            var ClickCounterViewModel = function () {
+                this.numberOfClicks = ko.observable(0);
+
+                this.registerClick = function () {
+                    this.numberOfClicks(this.numberOfClicks() + 1);
+                };
+
+                this.resetClicks = function () {
+                    this.numberOfClicks(0);
+                };
+
+                this.hasClickedTooManyTimes = ko.computed(function () {
+                    return this.numberOfClicks() >= 3;
+                }, this);
+            };
+
+            ko.applyBindings(new ClickCounterViewModel());
+        });
+    </script>
+</body>
+</html>

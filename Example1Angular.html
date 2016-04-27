@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Example 1 in Angular</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+</head>
+<body>
+    <div ng-app="example" ng-controller="exampleCtrl">
+        <p>First name: <input ng-model='firstName' /></p>
+        <p>Last name: <input ng-model='lastName' /></p>
+        <h2>Hello, <span>{{fullName()}}</span>!</h2>
+    </div>
+
+    <script type="text/javascript" src="js/lib/angular.min.js"></script>
+    <script> 
+        var app = angular.module('example', []);
+        app.controller('exampleCtrl', [ '$scope', function($scope) {
+            $scope.firstName = 'CAP';
+            $scope.lastName = 'Team';
+            $scope.fullName = function() {
+                return $scope.firstName + ' ' + $scope.lastName;
+            };
+        }]);
+    </script>
+</body>
+</html>

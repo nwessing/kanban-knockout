@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Example 3</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+</head>
+<body>
+    <form data-bind="submit: addNewItem">
+        Name <input type="text" data-bind="value: newItemName" /> 
+        Quantity <input type="text" data-bind="value: newItemQuantity" />
+        <button type="submit">Add</button>
+    </form>
+    <table> 
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: items">
+            <tr>
+                <td data-bind="text: Name"></td>
+                <td data-bind="text: Quantity"></td>
+            </tr>
+        </tbody>
+    </table>
+    <span data-bind="text: numItems"></span> rows
+
+    <script type="text/javascript" src="js/lib/knockout-3.1.0.js"></script>
+    <script> 
+        document.addEventListener('DOMContentLoaded', function () {
+            var GroceryListViewModel = function () {
+                this.items = ko.observableArray([]);
+                this.newItemName = ko.observable();
+                this.newItemQuantity = ko.observable();
+
+                this.addNewItem = function () {
+                    this.items.push({ Name: this.newItemName(), Quantity: this.newItemQuantity() });
+                };
+                
+                this.numItems = ko.computed(function () {
+                    return this.items().length;
+                }, this);
+            };
+
+            ko.applyBindings(new GroceryListViewModel());
+        });
+    </script>
+</body>
+</html>

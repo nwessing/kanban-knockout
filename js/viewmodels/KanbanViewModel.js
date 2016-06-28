@@ -1,35 +1,42 @@
-﻿var KanbanViewModel = function (todoArray, inProgressArray, completeArray) {
-    var todo = ko.observableArray(todoArray);
-    var inProgress = ko.observableArray(inProgressArray);
-    var complete = ko.observableArray(completeArray);
+﻿var Board = function (name, tasks) {
+    var self = this;
+    self.name = ko.observable(name);
+    self.tasks = ko.observableArray(tasks);
+    self.numTasks = ko.computed(function () {
+        return self.tasks().length;
+    });
+    self.addTask = function (task) {
+        self.tasks.push(task);
+    };
+    self.removeTask = function (task) {
+        self.tasks.remove(task);
+    };
+};
 
-    var moveToTodo = function (task) {
-        todo.push(task);
+var KanbanViewModel = function (todoArray, inProgressArray, completeArray) {
+    var todoBoard = new Board('To Do', todoArray);
+    var inProgressBoard = new Board('In Progress', inProgressArray);
+    var completeBoard = new Board('Complete', completeArray);
+    var newTaskName = ko.observable('');
+    var addNewTask = function () {
+        if (newTaskName()) {
+            todoBoard.addTask({ title: newTaskName() });
+            newTaskName('');
+        }
     };
-    var moveToInProgress = function (task) {
-        inProgress.push(task);
-    };
-    var moveToComplete = function (task) {
-        complete.push(task);
-    };
-    var removeFromTodo = function (task) {
-        todo.remove(task);
-    };
-    var removeFromInProgress = function (task) {
-        inProgress.remove(task);
-    };
-    var removeFromComplete = function (task) {
-        complete.remove(task);
-    };
+    var totalTasks = ko.computed(function () {
+        return todoBoard.numTasks() + inProgressBoard.numTasks() + completeBoard.numTasks();
+    });
+    var percentComplete = ko.computed(function () {
+        return Math.floor(completeBoard.numTasks() / totalTasks() * 100);
+    });
     return {
-        todo: todo,
-        inProgress: inProgress,
-        complete: complete,
-        moveToTodo: moveToTodo,
-        removeFromTodo: removeFromTodo,
-        moveToInProgress: moveToInProgress,
-        removeFromInProgress: removeFromInProgress,
-        moveToComplete: moveToComplete,
-        removeFromComplete: removeFromComplete,
+        todoBoard: todoBoard,
+        inProgressBoard: inProgressBoard,
+        completeBoard: completeBoard,
+        newTaskName: newTaskName,
+        addNewTask: addNewTask,
+        totalTasks: totalTasks,
+        percentComplete: percentComplete
     };
 };

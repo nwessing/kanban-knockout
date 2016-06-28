@@ -9,24 +9,30 @@
     <h2>KnockoutJS</h2>
     <div>
         <div class="third">
-            <h3 class="center">To Do</h3>
-            <div class="board" data-bind="dropzone: moveToTodo, foreach: todo">
-                <div class="task" data-bind="draggable: { data: $data, onMove: $parent.removeFromTodo }, text: title"> </div>
+            <form data-bind="submit: addNewTask">
+                <input type="text" placeholder="Task Name" data-bind="value: newTaskName"/> 
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <div class="third">
+            <progress data-bind="attr: {max: totalTasks}, value: completeBoard.numTasks"></progress>
+            <div class="center" >
+                <span data-bind="text: percentComplete"></span>%
             </div>
         </div>
-
         <div class="third">
-            <h3 class="center">In Progress</h3>
-            <div class="board" data-bind="dropzone: moveToInProgress, foreach: inProgress">
-                <div class="task" data-bind="draggable: { data: $data, onMove: $parent.removeFromInProgress }, text: title"> </div>
+            <div class="trash" data-bind="dropzone: function () { }">
+                Trash
             </div>
         </div>
+    </div>
 
-        <div class="third">
-            <h3 class="center">Complete</h3>
-            <div class="board" data-bind="dropzone: moveToComplete, foreach: complete">
-                <div class="task" data-bind="draggable: { data: $data, onMove: $parent.removeFromComplete }, text: title"> </div>
-            </div>
+    <div>
+        <div class="third" data-bind="template: { name: 'BoardTemplate', data: todoBoard }">
+        </div>
+        <div class="third" data-bind="template: { name: 'BoardTemplate', data: inProgressBoard }">
+        </div>
+        <div class="third" data-bind="template: { name: 'BoardTemplate', data: completeBoard }">
         </div>
     </div>
 
@@ -41,7 +47,7 @@
                 { title: "Show number of tasks on each board next to board title." },
                 { title: "Add a trash can drop area where tasks can be discarded." },
                 { title: "Add a progress bar showing how many tasks are complete over total tasks." },
-                { title: "Create a component to encapsulate a board." }
+                { title: "Create a template to encapsulate a board." }
             ];
             var inProgress = [];
             var complete = [
@@ -50,6 +56,13 @@
             var vm = new KanbanViewModel(todo, inProgress, complete);
             ko.applyBindings(vm);
         });
+    </script>
+
+    <script id="BoardTemplate" type="text/html">
+        <h3 class="center"><span data-bind="text: name"></span> (<span data-bind="text: numTasks"></span>)</h3>
+        <div class="board" data-bind="dropzone: addTask, foreach: tasks">
+            <div class="task" data-bind="draggable: { data: $data, onMove: $parent.removeTask }, text: title"> </div>
+        </div>
     </script>
 </body>
 </html>
